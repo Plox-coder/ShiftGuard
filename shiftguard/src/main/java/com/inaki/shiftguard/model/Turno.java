@@ -1,57 +1,101 @@
 package com.inaki.shiftguard.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Turno {
 
     private final Long id;
-    private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+
+    private LocalDateTime inicio;
+    private LocalDateTime fin;
     private Vigilante vigilante;
+    private CentroTrabajo centroTrabajo;
 
     public Turno(
             Long id,
-            LocalDate fecha,
-            LocalTime horaInicio,
-            LocalTime horaFin,
-            Vigilante vigilante
-    ) {
+            LocalDateTime inicio,
+            LocalDateTime fin,
+            Vigilante vigilante,
+            CentroTrabajo centroTrabajo) {
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    "El identificador debe ser positivo."
+            );
+        }
+
         this.id = id;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.vigilante = vigilante;
+
+        reprogramar(inicio, fin);
+        reasignarVigilante(vigilante);
+        cambiarCentroTrabajo(centroTrabajo);
     }
 
     public Long getId() {
         return id;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public LocalDateTime getInicio() {
+        return inicio;
     }
 
-    public LocalTime getHoraInicio() {
-        return horaInicio;
+    public LocalDateTime getFin() {
+        return fin;
     }
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-    public LocalTime getHoraFin() {
-        return horaFin;
-    }
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
-    }
+
     public Vigilante getVigilante() {
         return vigilante;
     }
-    public void setVigilante(Vigilante vigilante) {
-        this.vigilante = vigilante;
+
+    public CentroTrabajo getCentroTrabajo() {
+        return centroTrabajo;
+    }
+
+    public Duration getDuracion() {
+        return Duration.between(inicio, fin);
+    }
+
+    public void reprogramar(
+            LocalDateTime nuevoInicio,
+            LocalDateTime nuevoFin) {
+
+        Objects.requireNonNull(
+                nuevoInicio,
+                "El inicio es obligatorio."
+        );
+
+        Objects.requireNonNull(
+                nuevoFin,
+                "El final es obligatorio."
+        );
+
+        if (!nuevoFin.isAfter(nuevoInicio)) {
+            throw new IllegalArgumentException(
+                    "El final debe ser posterior al inicio."
+            );
+        }
+
+        this.inicio = nuevoInicio;
+        this.fin = nuevoFin;
+    }
+
+    public void reasignarVigilante(
+            Vigilante nuevoVigilante) {
+
+        this.vigilante = Objects.requireNonNull(
+                nuevoVigilante,
+                "El vigilante es obligatorio."
+        );
+    }
+
+    public void cambiarCentroTrabajo(
+            CentroTrabajo nuevoCentroTrabajo) {
+
+        this.centroTrabajo = Objects.requireNonNull(
+                nuevoCentroTrabajo,
+                "El centro de trabajo es obligatorio."
+        );
     }
 }

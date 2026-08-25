@@ -1,10 +1,18 @@
 package com.inaki.shiftguard.console;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public class Consola {
 
     private final Scanner scanner;
+    private static final DateTimeFormatter FORMATO_FECHA_HORA =
+        DateTimeFormatter
+                .ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
 
     public Consola() {
         this.scanner = new Scanner(System.in);
@@ -88,5 +96,47 @@ public class Consola {
 
     public void cerrar() {
         scanner.close();
+    }
+    public Long pedirLongPositivo(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine().trim();
+
+            try {
+                long numero = Long.parseLong(entrada);
+
+                if (numero > 0) {
+                    return numero;
+                }
+
+                System.out.println(
+                        "El número debe ser positivo."
+                );
+
+            } catch (NumberFormatException e) {
+                System.out.println(
+                        "Debes introducir un número válido."
+                );
+            }
+        }
+    }
+    public LocalDateTime pedirFechaHora(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine().trim();
+
+            try {
+                return LocalDateTime.parse(
+                        entrada,
+                        FORMATO_FECHA_HORA
+                );
+
+            } catch (DateTimeParseException e) {
+                System.out.println(
+                        "Fecha no válida. Utiliza el formato "
+                        + "dd/MM/yyyy HH:mm."
+                );
+            }
+        }
     }
 }

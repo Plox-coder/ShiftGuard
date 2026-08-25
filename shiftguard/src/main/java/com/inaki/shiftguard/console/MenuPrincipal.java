@@ -4,15 +4,18 @@ public class MenuPrincipal {
 
     private final MenuVigilantes menuVigilantes;
     private final MenuCentrosTrabajo menuCentrosTrabajo;
+    private final MenuTurnos menuTurnos;
     private final Consola consola;
 
     public MenuPrincipal(
             MenuVigilantes menuVigilantes,
             MenuCentrosTrabajo menuCentrosTrabajo,
+            MenuTurnos menuTurnos,
             Consola consola) {
 
         this.menuVigilantes = menuVigilantes;
         this.menuCentrosTrabajo = menuCentrosTrabajo;
+        this.menuTurnos = menuTurnos;
         this.consola = consola;
     }
 
@@ -30,7 +33,10 @@ public class MenuPrincipal {
                 case 2 ->
                     menuCentrosTrabajo.iniciar();
 
-                case 3 -> {
+                case 3 ->
+                    menuTurnos.iniciar();
+
+                case 4 -> {
                     ejecutando = false;
                     System.out.println(
                             "Cerrando ShiftGuard..."
@@ -50,6 +56,7 @@ public class MenuPrincipal {
         System.out.println("=== SHIFTGUARD ===");
         System.out.println("1. Gestión de vigilantes");
         System.out.println("2. Gestión de centros de trabajo");
-        System.out.println("3. Salir");
+        System.out.println("3. Gestión de turnos");
+        System.out.println("4. Salir");
     }
 }
