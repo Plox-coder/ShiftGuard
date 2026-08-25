@@ -1,0 +1,11 @@
+com\inaki\shiftguard\console\Consola.class
+com\inaki\shiftguard\console\Menu.class
+com\inaki\shiftguard\console\MenuVigilantes.class
+com\inaki\shiftguard\console\MenuPrincipal.class
+com\inaki\shiftguard\service\VigilanteService.class
+com\inaki\shiftguard\service\CentroTrabajoService.class
+com\inaki\shiftguard\Main.class
+com\inaki\shiftguard\console\MenuCentrosTrabajo.class
+com\inaki\shiftguard\model\CentroTrabajo.class
+com\inaki\shiftguard\model\Vigilante.class
+com\inaki\shiftguard\model\Turno.class
