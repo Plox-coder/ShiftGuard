@@ -1,59 +1,57 @@
 package com.inaki.shiftguard.model;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Turno {
 
-    private final long id;
-    private final Vigilante vigilante;
-    private final CentroTrabajo centroTrabajo;
-    private final LocalDateTime inicio;
-    private final LocalDateTime fin;
+    private final Long id;
+    private LocalDate fecha;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
+    private Vigilante vigilante;
 
-    public Turno(long id, Vigilante vigilante, CentroTrabajo centroTrabajo, LocalDateTime inicio, LocalDateTime fin) {
-
-        if (id <= 0) {
-            throw new IllegalArgumentException("El identificador debe ser positivo.");
-        }
-
+    public Turno(
+            Long id,
+            LocalDate fecha,
+            LocalTime horaInicio,
+            LocalTime horaFin,
+            Vigilante vigilante
+    ) {
         this.id = id;
-
-        this.vigilante = Objects.requireNonNull(vigilante, "El vigilante es obligatorio.");
-
-        this.centroTrabajo = Objects.requireNonNull(centroTrabajo, "El centro de trabajo es obligatorio.");
-
-        this.inicio = Objects.requireNonNull(inicio, "El inicio es obligatorio.");
-
-        this.fin = Objects.requireNonNull(fin,"El final es obligatorio.");
-
-        if (!fin.isAfter(inicio)) {
-            throw new IllegalArgumentException("El final debe ser posterior al inicio.");
-        }
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.vigilante = vigilante;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
+    public LocalDate getFecha() {
+        return fecha;
+    }
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
     public Vigilante getVigilante() {
         return vigilante;
     }
-
-    public CentroTrabajo getCentroTrabajo() {
-        return centroTrabajo;
-    }
-
-    public LocalDateTime getInicio() {
-        return inicio;
-    }
-
-    public LocalDateTime getFin() {
-        return fin;
-    }
-
-    public Duration getDuracion() {
-        return Duration.between(inicio, fin);
+    public void setVigilante(Vigilante vigilante) {
+        this.vigilante = vigilante;
     }
 }
