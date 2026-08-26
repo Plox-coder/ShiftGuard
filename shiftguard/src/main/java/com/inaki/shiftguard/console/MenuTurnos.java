@@ -18,9 +18,7 @@ public class MenuTurnos {
     private final TurnoService turnoService;
     private final Consola consola;
 
-    public MenuTurnos(
-            TurnoService turnoService,
-            Consola consola) {
+    public MenuTurnos(TurnoService turnoService, Consola consola) {
 
         this.turnoService = turnoService;
         this.consola = consola;
